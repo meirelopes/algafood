@@ -5,10 +5,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
 import com.algaworks.algafood.AlgafoodApplication;
-import com.algaworks.algafood.domain.model.Cozinha;
-import com.algaworks.algafood.domain.repository.CozinhaRepository;
+import com.algaworks.algafood.domain.model.Restaurante;
+import com.algaworks.algafood.domain.repository.RestauranteRepository;
 
-public class ConsultaCozinhaMain {
+public class ConsultaRestauranteMain {
 	
 	public static void main(String[] args) {
 		
@@ -16,10 +16,11 @@ public class ConsultaCozinhaMain {
 				.web(WebApplicationType.NONE)
 				.run(args);
 		
-		CozinhaRepository cozinhaRepository = applicationContext.getBean(CozinhaRepository.class);
+		RestauranteRepository restauranteRepository = applicationContext.getBean(RestauranteRepository.class);
 		
-		Cozinha cozinha = cozinhaRepository.buscar(1L);
-		System.out.println(cozinha.getNome());
+		Restaurante restaurante = restauranteRepository.buscar(2L);
+		System.out.printf("%s - %f - %s\n", restaurante.getNome(),
+				restaurante.getTaxaFrete(), restaurante.getCozinha().getNome());
 				
 
 }
