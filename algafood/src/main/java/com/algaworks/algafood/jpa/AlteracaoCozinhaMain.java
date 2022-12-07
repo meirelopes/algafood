@@ -23,7 +23,7 @@ public class AlteracaoCozinhaMain {
 		cozinha.setNome("Brasileira");
 
 		
-		cozinhaRepository.salvar(cozinha);
+		cozinhaRepository.save(cozinha);
 		
 		System.out.printf("%d - %s\n", cozinha.getId(),cozinha.getNome());
 		
