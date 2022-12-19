@@ -1,5 +1,6 @@
 package com.algaworks.algafood.api.controller;
 
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +15,8 @@ import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
+import com.algaworks.algafood.infrastucture.repository.spec.RestauranteSpec;
+
 
 @RestController
 @RequestMapping(value = "/teste")
@@ -82,6 +85,38 @@ public class TesteController {
 		return restauranteRepository.find(nome, taxaFreteInicial, taxaFreteFinal);
 	}
 
-	
-	
+	//Método customizado:
+		@GetMapping("/restaurantes/por-nome-e-taxa-frete-2")
+		public List<Restaurante> restaurantePorNomeFrete2(String nome, 
+				BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal){
+			return restauranteRepository.find2(nome, taxaFreteInicial, taxaFreteFinal);
+		}
+
+		//Método com Criteria Api:
+		@GetMapping("/restaurantes/por-nome-criteria")
+		public List<Restaurante> restaurantePorNomeCriteria(String nome, 
+				BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal){
+			return restauranteRepository.find3(nome, taxaFreteInicial, taxaFreteFinal);
+		}
+
+		//Método com Criteria Api adicionando restrições na cláusula where:
+		@GetMapping("/restaurantes/por-nome-criteria2")
+		public List<Restaurante> restaurantePorNomeCriteria2(String nome, 
+				BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal){
+			return restauranteRepository.find4(nome, taxaFreteInicial, taxaFreteFinal);
+		}
+
+		//Método com Criteria Api adicionando restrições na cláusula where e filtros dinâmicos:
+				@GetMapping("/restaurantes/por-nome-criteria3")
+				public List<Restaurante> restaurantePorNomeCriteria3(String nome, 
+						BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal){
+					return restauranteRepository.find5(nome, taxaFreteInicial, taxaFreteFinal);
+				}
+
+				@GetMapping("/restaurantes/com-frete-gratis")
+				public List<Restaurante> restauranteComFreteGratis(String nome){
+					return restauranteRepository.findAll(RestauranteSpec
+							.comFreteGratis().and(RestauranteSpec.comNomeSemelhante(nome)));
+
+}
 }
