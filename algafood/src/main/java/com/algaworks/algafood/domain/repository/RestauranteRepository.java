@@ -31,4 +31,6 @@ public interface RestauranteRepository extends CustomJpaRepository<Restaurante, 
 	
 	List<Restaurante> find(String nome,
 			BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal);
+	
+
 } 

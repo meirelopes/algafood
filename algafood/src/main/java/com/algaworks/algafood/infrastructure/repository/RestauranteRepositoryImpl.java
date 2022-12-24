@@ -1,4 +1,4 @@
-package com.algaworks.algafood.infrastucture.repository;
+package com.algaworks.algafood.infrastructure.repository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import org.springframework.util.StringUtils;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.repository.RestauranteRepositoryQueries;
-import com.algaworks.algafood.infrastucture.repository.spec.RestauranteSpec;
+import com.algaworks.algafood.infrastructure.repository.spec.RestauranteSpec;
 
 @Repository
 public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
@@ -134,11 +134,11 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
 		return query.getResultList();
 	}
 
+
 	@Override
 	public List<Restaurante> findComFreteGratis(String nome) {
 		return restauranteRepository.findAll(RestauranteSpec
 				.comFreteGratis().and(RestauranteSpec.comNomeSemelhante(nome)));
-
 	}
 	}
 	
