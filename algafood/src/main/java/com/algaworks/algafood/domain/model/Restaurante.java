@@ -69,8 +69,6 @@ public class Restaurante {
 				inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
 	private List<FormaPagamento> formasPagamento = new ArrayList<>();
 	
-
-	
 	//dialect do mysql para deixar engine InnoDB, porém na versão utilizada já estava
 	//spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MYSQL57Dialect 
 
