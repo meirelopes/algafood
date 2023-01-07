@@ -81,10 +81,17 @@ public class CozinhaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}
 }*/
+
+/*	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@DeleteMapping("/{cozinhaId}")
+	public void remover(@PathVariable Long cozinhaId) {
+			cadastroCozinha.excluir(cozinhaId);
+}*/
+	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{cozinhaId}")
 	public void remover(@PathVariable Long cozinhaId) {
 			cadastroCozinha.excluir(cozinhaId);
-		
+	
 }
 }
