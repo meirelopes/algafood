@@ -15,7 +15,7 @@ import javax.validation.Payload;
 
 public @interface ValorZeroIncluiDescricao {
 		
-	String message() default "descrfição obrigatória inválida";
+	String message() default "descrição obrigatória inválida";
 
 	Class<?>[] groups() default { };
 

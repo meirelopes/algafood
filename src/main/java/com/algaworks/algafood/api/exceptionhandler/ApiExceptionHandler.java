@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -164,13 +165,16 @@ protected ResponseEntity<Object> handleTypeMismatch(org.springframework.beans.Ty
 		
 		BindingResult bindingResult =  ex.getBindingResult();
 		
-		List<Problem.Field> problemFields = bindingResult.getFieldErrors().stream()
-				.map(fieldError -> {
+		List<Problem.Object> problemObjects = bindingResult.getAllErrors().stream()
+				.map(objectError -> {
 					
-					String message = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
-
-					return Problem.Field.builder()
-						.name(fieldError.getField())
+					String message = messageSource.getMessage(objectError, LocaleContextHolder.getLocale());
+					String name = objectError.getObjectName();
+					if(objectError instanceof FieldError) {
+						name = ((FieldError) objectError).getField();
+					}
+					return Problem.Object.builder()
+						.name(name)
 						.userMessage(message)
 						.build();
 						})
@@ -179,7 +183,7 @@ protected ResponseEntity<Object> handleTypeMismatch(org.springframework.beans.Ty
 		
 		Problem problem = createProblemBuilder(status, problemType, detail)
 				.userMessage(detail)
-				.fields(problemFields)
+				.objects(problemObjects)
 				.build();
 				
 		return handleExceptionInternal(ex, problem, headers, status, request);
