@@ -66,7 +66,7 @@ class CadastroCozinhaIT {
 		} 
 	
 	@Test
-	public void deveConter2Cozinhas_QuandoConsultarCozinhas() {	
+	public void deveConterQuantidadeCozinhas_QuandoConsultarCozinhas() {	
 		
 		given()
 			.accept(ContentType.JSON)
