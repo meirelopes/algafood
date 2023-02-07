@@ -28,7 +28,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.algaworks.algafood.core.validation.Groups;
 import com.algaworks.algafood.core.validation.TaxaFrete;
 import com.algaworks.algafood.core.validation.ValorZeroIncluiDescricao;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -45,21 +44,14 @@ public class Restaurante {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	
-	//@NotNull
-	//@NotEmpty
 	@NotBlank
 	private String nome;
 	
-	//@DecimalMin("0")
 	@NotNull
-	//@PositiveOrZero(message = "{TaxaFrete.invalida}")
 	@TaxaFrete
-	//@Multiplo(numero = 5)
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 	
-	//@JsonIgnore
-	//@JsonIgnoreProperties("hibernateLazyInitializer")
 	@Valid
 	@ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
 	@NotNull
@@ -67,33 +59,25 @@ public class Restaurante {
 	@JoinColumn(name = "cozinha_id", nullable = false)
 	private Cozinha cozinha;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "restaurante")
 	private List<Produto> produtos = new ArrayList<>();
 	
-	@JsonIgnore
 	@Embedded
 	private Endereco endereco;
 	
-	@JsonIgnore
 	@CreationTimestamp
 	@Column(nullable = false, columnDefinition = "datetime")
 	private LocalDateTime dataCadastro;
 	
-	@JsonIgnore
 	@UpdateTimestamp
 	@Column(nullable = false, columnDefinition = "datetime")
 	private LocalDateTime dataAtualizacao;
 	
-	
-	@JsonIgnore
-	@ManyToMany//(fetch = FetchType.EAGER)
+		@ManyToMany//(fetch = FetchType.EAGER)
 	@JoinTable(name = "restaurante_forma_pagamento", joinColumns = @JoinColumn(name = "restaurante_id"),
 				inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
 	private List<FormaPagamento> formasPagamento = new ArrayList<>();
 	
-	//dialect do mysql para deixar engine InnoDB, porém na versão utilizada já estava
-	//spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MYSQL57Dialect 
 
 	
 
