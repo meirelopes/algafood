@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.exceptionhandler;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -280,7 +280,7 @@ protected ResponseEntity<Object> handleTypeMismatch(org.springframework.beans.Ty
 			body = Problem.builder()
 					.title(status.getReasonPhrase())
 					.status(status.value())
-					.timestamp(LocalDateTime.now())
+					.timestamp(OffsetDateTime.now())
 					.userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
 					.build();
 			
@@ -288,7 +288,7 @@ protected ResponseEntity<Object> handleTypeMismatch(org.springframework.beans.Ty
 			body = Problem.builder()
 					.title((String)body)
 					.status(status.value())
-					.timestamp(LocalDateTime.now())
+					.timestamp(OffsetDateTime.now())
 					.userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
 					.build();
 		}
@@ -302,7 +302,7 @@ protected ResponseEntity<Object> handleTypeMismatch(org.springframework.beans.Ty
 				.type(problemType.getUri())
 				.title(problemType.getTitle())
 				.detail(detail)
-				.timestamp(LocalDateTime.now());
+				.timestamp(OffsetDateTime.now());
 	}
 	
 	private String joinPath(List<Reference> references) {
